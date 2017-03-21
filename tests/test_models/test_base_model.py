@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime
 from models import *
-
+from console import HBNBCommand
 
 class Test_BaseModel(unittest.TestCase):
     """
@@ -9,6 +9,7 @@ class Test_BaseModel(unittest.TestCase):
     """
 
     def setUp(self):
+        self.cli = HBNBCommand()
         self.model1 = BaseModel()
 
         test_args = {'created_at': datetime(2017, 2, 10, 2, 6, 55, 258849),
@@ -17,6 +18,10 @@ class Test_BaseModel(unittest.TestCase):
                      'name': 'model1'}
         self.model2 = BaseModel(test_args)
         self.model2.save()
+
+    def tearDown(self):
+        self.cli.do_destroy("BaseModel " + self.model1.id)
+        self.cli.do_destroy("BaseModel " + self.model2.id)
 
     def test_instantiation(self):
         self.assertIsInstance(self.model1, BaseModel)

@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime
 from models import *
-
+from console import HBNBCommand
 
 class Test_CityModel(unittest.TestCase):
     """
@@ -9,6 +9,7 @@ class Test_CityModel(unittest.TestCase):
     """
 
     def setUp(self):
+        self.cli = HBNBCommand()
         self.model = City()
         self.model.save()
 
@@ -17,7 +18,7 @@ class Test_CityModel(unittest.TestCase):
         self.assertTrue(hasattr(self.model, "state_id"))
         self.assertEqual(self.model.name, "")
         self.assertEqual(self.model.state_id, "")
-
+        self.cli.do_destroy("City " + self.model.id)
 
 if __name__ == "__main__":
     unittest.main()

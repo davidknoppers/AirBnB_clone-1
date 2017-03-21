@@ -69,13 +69,13 @@ class Test_Console(unittest.TestCase):
         with captured_output() as (out, err):
             self.cli.do_show("d3da85f2-499c-43cb-b33d-3d7935bc808c")
         output = out.getvalue().strip()
-        self.assertEqual(output, "** no instance found **")
+        self.assertEqual(output, "** instance id missing **")
 
     def test_create(self):
         with captured_output() as (out, err):
             self.cli.do_create('')
         output = out.getvalue().strip()
-        self.assertEqual(output, "Usage: create BaseModel")
+        self.assertEqual(output, "** clas name missing **")
 
         with captured_output() as (out, err):
             self.cli.do_create("BaseModel")
@@ -109,7 +109,7 @@ class Test_Console(unittest.TestCase):
         with captured_output() as (out, err):
             self.cli.do_destroy("d3da85f2-499c-43cb-b33d-3d7935bc808c")
         output = out.getvalue().strip()
-        self.assertEqual(output, "** class name missing **")
+        self.assertEqual(output, "** instance id missing **")
 
     def test_destroy_error_invalid_class(self):
         with captured_output() as (out, err):
@@ -136,7 +136,8 @@ class Test_Console(unittest.TestCase):
         self.assertTrue("d3da85f2-499c-43cb-b33d-3d7935bc808c" in output)
         self.assertTrue("f519fb40-1f5c-458b-945c-2ee8eaaf4900" in output)
         self.assertFalse("123-456-abc" in output)
-
+        self.cli.do_destroy("BaseModel " +
+                            "f519fb40-1f5c-458b-945c-2ee8eaaf4900")
     def test_all_correct_with_class(self):
         with captured_output() as (out, err):
             self.cli.do_all("BaseModel")
@@ -173,7 +174,7 @@ class Test_Console(unittest.TestCase):
         with captured_output() as (out, err):
             self.cli.do_update("BaseModel name Cat")
         output = out.getvalue().strip()
-        self.assertEqual(output, "** instance id missing **")
+        self.assertEqual(output, "** value missing **")
 
     def test_update_error_invalid_class(self):
         with captured_output() as (out, err):
@@ -186,7 +187,7 @@ class Test_Console(unittest.TestCase):
         with captured_output() as (out, err):
             self.cli.do_update("d3da85f2-499c-43cb-b33d-3d7935bc808c name Cat")
         output = out.getvalue().strip()
-        self.assertEqual(output, "** class name missing **")
+        self.assertEqual(output, "** value missing **")
 
     def test_update_error_missing_value(self):
         with captured_output() as (out, err):

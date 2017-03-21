@@ -10,7 +10,7 @@ The project is currently in its first phase, where we are creating a command lin
 
 
 **Authors**
-David Knoppers (added the SQL component)
+- David Knoppers (added the SQL component)
 This repo is forked from an original project, per Holberton requirements, by:
 - **Philip Yoo**, \<philip.yoo@holbertonschool.com>, @philipYoo10
 - **Jianqin Wang**, \<jianqin.wang@holbertonschool.com>, @jianqinwang94

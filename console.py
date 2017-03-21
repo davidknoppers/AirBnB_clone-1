@@ -27,7 +27,7 @@ class HBNBCommand(cmd.Cmd):
         temp_dict = {}
         args = args.split()
         if len(args) < 1:
-            print("some shit")
+            print("** class name missing **")
         if args[0] not in HBNBCommand.valid_classes:
             print("**class name not found**")
             return
@@ -35,12 +35,15 @@ class HBNBCommand(cmd.Cmd):
             new_obj = eval(args[0])()
             print(new_obj.id)
             new_obj.save()
-        for arg in range(1, len(args)):
+            return
+        arg_params = args[1:]
+        for arg in arg_params:
             try:
                 arg = arg.split("=")
             except:
                 temp_dict = {}
-                return ("Input fucked up")
+                print("Input not separated by = signs")
+                return
             if "." in arg[1]:
                 if float(arg[1]):
                     temp_dict[arg[0]] = float(arg[1])
@@ -53,9 +56,9 @@ class HBNBCommand(cmd.Cmd):
                 except:
                     print("Input fucked up")
                     return
-            new_obj = eval(args[0])(**temp_dict)
-            print(new_obj.id)
-            new_obj.save()
+        new_obj = eval(args[0])(**temp_dict)
+        print(new_obj.id)
+        new_obj.save()
 
     def do_show(self, args):
         """Usage: show BaseModel 1234-1234-1234"""

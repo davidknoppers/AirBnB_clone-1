@@ -24,16 +24,38 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """Create a new Basemodel"""
+        temp_dict = {}
         args = args.split()
-        if len(args) != 1:
-            print("** clas name missing **")
-        else:
-            if len(args) > 0 and args[0] in HBNBCommand.valid_classes:
-                new_obj = eval(args[0])()
-                print(new_obj.id)
-                new_obj.save()
+        if len(args) < 1:
+            print("some shit")
+        if args[0] not in HBNBCommand.valid_classes:
+            print("**class name not found**")
+            return
+        if len(args) == 1:
+            new_obj = eval(args[0])()
+            print(new_obj.id)
+            new_obj.save()
+        for arg in range(1, len(args)):
+            try:
+                arg = arg.split("=")
+            except:
+                temp_dict = {}
+                return ("Input fucked up")
+            if "." in arg[1]:
+                if float(arg[1]):
+                    temp_dict[arg[0]] = float(arg[1])
+            elif arg[1][0] == '"' and arg[1][-1] == '"':
+                temp_dict[arg[0]] = arg[1][1:-1].replace("_"," ")
             else:
-                return
+                try:
+                    int(arg[1])
+                    temp_dict[arg[0]] = int(arg[1])
+                except:
+                    print("Input fucked up")
+                    return
+            new_obj = eval(args[0])(**temp_dict)
+            print(new_obj.id)
+            new_obj.save()
 
     def do_show(self, args):
         """Usage: show BaseModel 1234-1234-1234"""

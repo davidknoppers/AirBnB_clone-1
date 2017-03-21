@@ -14,8 +14,14 @@ class BaseModel:
         else:
             self.created_at = datetime.datetime.now()
             self.id = str(uuid.uuid4())
-        for k in kwargs:
-            print("kwargs: {}: {}".format(k, kwargs[k]))
+
+        for key, val in kwargs.items():
+            setattr(self, key, val)
+
+        if not hasattr(self, "created_at"):
+            self.created_at = datetime.now()
+        if not hasattr(self, "id"):
+            self.id = str(uuid.uuid4())
 
     def save(self):
         """method to update self"""

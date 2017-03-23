@@ -12,17 +12,17 @@ if getenv('HBNB_TYPE_STORAGE') == 'db':
 else:
     Base = object
 
+
 class BaseModel:
-    """The base class for all storage objects in this project"""
+    """The base class for all objects"""
     if getenv('HBNB_TYPE_STORAGE') == 'db':
         id = Column(String(60), primary_key=True, nullable=False)
         created_at = Column(DateTime(), default=datetime.now(), nullable=False)
         updated_at = Column(DateTime(), default=datetime.now(), nullable=False,
                             onupdate=datetime.now())
 
-
     def __init__(self, *args, **kwargs):
-        """initialize class object"""
+        """make a class object"""
         if getenv('HBNB_TYPE_STORAGE') != 'db':
             if len(args) > 0:
                 for key, val in args[0].items():

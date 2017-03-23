@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-from models.base_model import BaseModel, Base, Table, Column, String
+from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship, backref
+from sqlalchemy import ForeignKey, String, Integer, Float, Table, Column
 from os import getenv
 
 
@@ -14,4 +15,4 @@ class State(BaseModel):
         name = ""
 
     def __init__(self, *args, **kwargs):
-        super(State, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)

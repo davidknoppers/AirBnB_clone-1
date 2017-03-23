@@ -25,8 +25,8 @@ class BaseModel:
         """make a class object"""
         if getenv('HBNB_TYPE_STORAGE') != 'db':
             if len(args) > 0:
-                for key, val in args[0].items():
-                    setattr(self, key, val)
+                for k in args[0]:
+                    setattr(self, k, args[0][k])
 
         for key, val in kwargs.items():
             setattr(self, key, val)
@@ -59,3 +59,5 @@ class BaseModel:
             dupe["updated_at"] = str(dupe["updated_at"])
         dupe["__class__"] = type(self).__name__
         return dupe
+    def delete(self):
+        models.storage.delete(self.id)

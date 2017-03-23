@@ -11,7 +11,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 
-from os import getenv
+from os import getenv, environ
 
 
 class DBstorage:
@@ -27,16 +27,18 @@ class DBstorage:
 
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
             getenv('HBNB_MYSQL_USER'),
-            getenv('HBNB_MYSQL_HOST'),
             getenv('HBNB_MYSQL_PWD'),
+            getenv('HBNB_MYSQL_HOST'),
             getenv('HBNB_MYSQL_DB')))
 
         Session = sessionmaker(bind=self.__engine)
         Base.metadata.create_all(self.__engine)
         self.__session = Session()
-        if mysql_env == 'test':
-            Base.metadata.drop_all(self.__engine)
-
+        try:
+            if environ['HBNB_MYSQL_ENV'] == "test":
+                Base.metadata.drop_all(self.__engine)
+        except:
+            pass
     def all(self, cls=None):
         objects = {}
         if cls is None:
@@ -59,6 +61,6 @@ class DBstorage:
             self.__session.delete(obj)
 
     def reload(self):
-        Session = sessionmaker(bind=self.__engine)
         Base.metadata.create_all(self.__engine)
+        Session = sessionmaker(bind=self.__engine)
         self.__session = Session()

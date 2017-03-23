@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-from models.base_model import BaseModel, Base, Table, Column, String
-from sqlalchemy import ForeignKey
+from models.base_model import BaseModel, Base
+from sqlalchemy import ForeignKey, Table, Column, String
 from os import getenv
-
+from sqlalchemy.orm import relationship
 
 class City(BaseModel):
     if getenv('HBNB_TYPE_STORAGE', 'fs') == 'db':

@@ -37,7 +37,6 @@ class DBstorage:
         if mysql_env == 'test':
             Base.metadata.drop_all(self.__engine)
 
-
     def all(self, cls=None):
         objects = {}
         if cls is None:

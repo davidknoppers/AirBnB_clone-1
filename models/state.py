@@ -5,7 +5,7 @@ from sqlalchemy import ForeignKey, String, Integer, Float, Table, Column
 from os import getenv
 
 
-class State(BaseModel):
+class State(BaseModel, Base):
     if getenv('HBNB_TYPE_STORAGE', 'fs') == 'db':
         __tablename__ = "states"
         name = Column(String(128), nullable=False)

@@ -5,7 +5,7 @@ from sqlalchemy import ForeignKey, String, Integer, Float, Table, Column
 from os import getenv
 
 
-class Place(BaseModel):
+class Place(BaseModel, Base):
     if getenv('HBNB_TYPE_STORAGE', 'fs') == 'db':
         __tablename__ = "places"
         city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)

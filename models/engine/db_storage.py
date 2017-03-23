@@ -7,7 +7,7 @@ from models.base_model import BaseModel
 from models.user import User
 from models.amenity import Amenity
 from models.city import City
-from models.place import Place
+from models.place import Place, PlaceAmenity
 from models.review import Review
 from models.state import State
 
@@ -61,6 +61,12 @@ class DBstorage:
             self.__session.delete(obj)
 
     def reload(self):
-        Base.metadata.create_all(self.__engine)
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
+            getenv('HBNB_MYSQL_USER'),
+            getenv('HBNB_MYSQL_PWD'),
+            getenv('HBNB_MYSQL_HOST'),
+            getenv('HBNB_MYSQL_DB')))
+
         Session = sessionmaker(bind=self.__engine)
+        Base.metadata.create_all(self.__engine)
         self.__session = Session()

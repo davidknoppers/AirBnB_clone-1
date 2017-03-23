@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship, backref
 from os import getenv
 
 
-class User(BaseModel):
+class User(BaseModel, Base):
     if getenv('HBNB_TYPE_STORAGE', 'fs') == 'db':
         __tablename__ = "users"
         email = Column(String(128), nullable=False)

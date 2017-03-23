@@ -58,7 +58,7 @@ class DBstorage:
 
     def delete(self, obj=None):
         if obj is not None:
-            self.__session.delete(obj)
+            eval(obj).query.filter_by(id=obj.id).delete()
 
     def reload(self):
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(

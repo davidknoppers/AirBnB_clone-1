@@ -36,6 +36,7 @@ class Place(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+
 class PlaceAmenity(Base):
     __tablename__ = "place_amenity"
     place_id = Column(String(60), ForeignKey('places.id'), nullable=False,

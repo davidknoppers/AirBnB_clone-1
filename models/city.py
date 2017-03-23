@@ -4,6 +4,7 @@ from sqlalchemy import ForeignKey, Table, Column, String
 from os import getenv
 from sqlalchemy.orm import relationship
 
+
 class City(BaseModel, Base):
     if getenv('HBNB_TYPE_STORAGE', 'fs') == 'db':
         __tablename__ = "cities"

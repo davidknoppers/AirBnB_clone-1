@@ -39,6 +39,7 @@ class DBstorage:
                 Base.metadata.drop_all(self.__engine)
         except:
             pass
+
     def all(self, cls=None):
         objects = {}
         if cls is None:

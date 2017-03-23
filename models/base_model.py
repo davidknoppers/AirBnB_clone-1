@@ -7,6 +7,7 @@ from sqlalchemy import Column, Integer, String, DateTime, Table
 from sqlalchemy.ext.declarative import declarative_base
 from os import getenv
 
+
 if getenv('HBNB_TYPE_STORAGE') == 'db':
     Base = declarative_base()
 else:
@@ -59,5 +60,6 @@ class BaseModel:
             dupe["updated_at"] = str(dupe["updated_at"])
         dupe["__class__"] = type(self).__name__
         return dupe
+
     def delete(self):
         models.storage.delete(self.id)

@@ -3,6 +3,7 @@ from datetime import datetime
 from models import *
 from console import HBNBCommand
 
+
 class Test_UserModel(unittest.TestCase):
     """
     Test the user model class

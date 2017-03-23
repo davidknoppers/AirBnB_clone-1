@@ -138,6 +138,7 @@ class Test_Console(unittest.TestCase):
         self.assertFalse("123-456-abc" in output)
         self.cli.do_destroy("BaseModel " +
                             "f519fb40-1f5c-458b-945c-2ee8eaaf4900")
+
     def test_all_correct_with_class(self):
         with captured_output() as (out, err):
             self.cli.do_all("BaseModel")

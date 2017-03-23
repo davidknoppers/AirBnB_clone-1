@@ -48,7 +48,7 @@ class HBNBCommand(cmd.Cmd):
                 if float(arg[1]):
                     temp_dict[arg[0]] = float(arg[1])
             elif arg[1][0] == '"' and arg[1][-1] == '"':
-                temp_dict[arg[0]] = arg[1][1:-1].replace("_"," ")
+                temp_dict[arg[0]] = arg[1][1:-1].replace("_", " ")
             else:
                 try:
                     int(arg[1])

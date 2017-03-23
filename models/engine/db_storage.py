@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-from models.base_model import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from os import getenv
+
+from models.base_model import Base
 from models.base_model import BaseModel
 from models.user import User
 from models.amenity import Amenity
@@ -11,22 +11,26 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 
+from os import getenv
+
+
 class DBstorage:
     __engine = None
     __session = None
 
+    valid_classes = {"User": User,
+                     "Amenity": Amenity, "City": City,
+                     "Place": Place, "Review": Review,
+                     "State": State}
+
     def __init__(self):
-        self.__valid_classes = {"User": User,
-                                   "Amenity": Amenity, "City": City,
-                                   "Place": Place, "Review": Review,
-                                   "State": State}
 
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
             getenv('HBNB_MYSQL_USER'),
             getenv('HBNB_MYSQL_HOST'),
             getenv('HBNB_MYSQL_PWD'),
-            getenv('HBNB_MYSQL_DB'),
-            getenv('HBNB_MYSQL_ENV'))
+            getenv('HBNB_MYSQL_DB')))
+
         Session = sessionmaker(bind=self.__engine)
         Base.metadata.create_all(self.__engine)
         self.__session = Session()

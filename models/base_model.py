@@ -1,27 +1,46 @@
 #!/usr/bin/python3
-import datetime
+from import datetime import datetime
 import uuid
 import models
+import sqlalchemy
+from sqlalchemy import Column, Integer, String, DateTime, Table
+from sqlalchemy.ext.declarative import declarative_base
+from os import getenv
 
+if getenv('HBNB_TYPE_STORAGE') == 'db':
+    Base = declarative_base()
+else:
+    Base = object
 
 class BaseModel:
     """The base class for all storage objects in this project"""
+    if getenv('HBNB_TYPE_STORAGE') == 'db':
+        id = Column(String(60), primary_key=True, nullable=False))
+        created_at = Column(DateTime(), default=datetime.now(), nullable=False)
+        updated_at = Column(DateTime(), default=datetime.now(), nullable=False,
+                            onupdate=datetime.now())
+
+
     def __init__(self, *args, **kwargs):
         """initialize class object"""
-        if len(args) > 0:
-            for k in args[0]:
-                setattr(self, k, args[0][k])
-        else:
-            self.created_at = datetime.datetime.now()
-            self.id = str(uuid.uuid4())
+        if getenv('HBNB_TYPE_STORAGE') != 'db':
+            if len(args) > 0:
+                for key, val in args[0].items():
+                    setattr(self, key, val)
+        for key, val in args[0].items():
+            setattr(self, key, val)
 
         for key, val in kwargs.items():
             setattr(self, key, val)
 
-        if not hasattr(self, "created_at"):
+        if getenv('HBNB_TYPE_STORAGE') == 'db':
             self.created_at = datetime.now()
-        if not hasattr(self, "id"):
             self.id = str(uuid.uuid4())
+        else:
+            if not hasattr(self, 'created_at'):
+                self.created_at = datetime.now()
+            if not hasattr(self, 'id'):
+                self.id = str(uuid.uuid4())
 
     def save(self):
         """method to update self"""

@@ -3,11 +3,20 @@
 from flask import Flask
 app = Flask(__name__)
 
+
 @app.route('/')
 def hello_hbnb():
+    """
+    simple hello world-type fn
+    """
     return 'Hello HBNB!'
+
+
 @app.route('/hbnb')
 def just_hbnb():
+    """
+    simple hello world-type fn
+    """
     return 'HBNB'
 
 

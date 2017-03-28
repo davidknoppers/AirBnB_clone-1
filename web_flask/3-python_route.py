@@ -3,19 +3,38 @@
 from flask import Flask
 app = Flask(__name__)
 
+
 @app.route('/')
 def hello_hbnb():
+    """
+    simple hello world-type fn
+    """
     return ('Hello HBNB!')
+
+
 @app.route('/hbnb')
 def just_hbnb():
+    """
+    simple hello world-type fn
+    """
     return ('HBNB')
+
+
 @app.route('/c/<text>')
 def c_route(text):
-    return ("C "+text.replace("_"," "))
+    """
+    Returns C + a string
+    """
+    return ("C "+text.replace("_", " "))
+
+
 @app.route('/python/')
 @app.route('/python/<text>')
 def python_route(text="is cool"):
-    return ("Python "+text.replace("_"," "))
+    """
+    returns Python + string
+    """
+    return ("Python "+text.replace("_", " "))
 
 
 if __name__ == "__main__":

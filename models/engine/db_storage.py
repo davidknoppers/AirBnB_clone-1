@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, scoped_session
 
 from models.base_model import Base
 from models.base_model import BaseModel
@@ -47,7 +47,7 @@ class DBstorage:
                 for instance in self.__session.query(orm_class):
                     objects[instance.id] = instance
         else:
-            for instance in self.__session.query(cls):
+            for instance in self.__session.query(self.valid_classes[cls]):
                 objects[instance.id] = instance
         return objects
 
@@ -73,4 +73,4 @@ class DBstorage:
         """
         simply calls remove on the session
         """
-        self.remove(self.__session)
+        self.__session.remove()

@@ -68,6 +68,9 @@ class DBstorage:
             getenv('HBNB_MYSQL_HOST'),
             getenv('HBNB_MYSQL_DB')))
 
-        Session = sessionmaker(bind=self.__engine)
-        Base.metadata.create_all(self.__engine)
-        self.__session = Session()
+        self.__session = scoped_session(sessionmaker(bind=self.__engine))
+    def close(self):
+        """
+        simply calls remove on the session
+        """
+        self.remove(self.__session)

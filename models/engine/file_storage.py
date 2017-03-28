@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Filestorage class
+"""
 import json
 from datetime import datetime
 from models import *
@@ -45,3 +48,9 @@ class FileStorage:
     def delete(self, obj=None):
         if obj is not None:
             FileStorage.__objects.pop(obj.id, 0)
+
+    def close(self):
+        """
+        just calls save
+        """
+        self.save()

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from flask import Flask
+from flask import Flask, abort
 app = Flask(__name__)
 
 
@@ -43,8 +43,11 @@ def number_route(n):
     """
     prints if n is an int
     """
-    return ("{} is a number".format(n))
-
+    try:
+        n = int(n)
+        return ("{} is a number".format(n))
+    except:
+        abort(404)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

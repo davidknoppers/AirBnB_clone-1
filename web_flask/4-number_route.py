@@ -37,13 +37,12 @@ def python_route(text="is cool"):
     return ("Python "+text.replace("_", " "))
 
 
-@app.route('/number/')
 @app.route('/number/<int:n>')
 def number_route(n):
     """
     prints if n is an int
     """
-    return "{} is a number".format(n)
+    return "{} is a number".format(int(n))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

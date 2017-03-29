@@ -13,12 +13,13 @@ def states_html(id):
     """
     states = storage.all("State")
     if (id is None):
-        return render_template('9-states.html', states=states, id='all')
+        return render_template('9-states.html', states=states, id='all_states')
     else:
         for val in states.values():
             if val.id == id:
                 state = val
-                return render_template('9-states.html', states=state, id='one')
+                return render_template('9-states.html',
+                                       states=state, id='one_state')
         return render_template('9-states.html', states=states, id='none')
 
 
@@ -30,4 +31,4 @@ def teardown(self):
     storage.close()
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port="5000")
+    app.run(host="0.0.0.0", port=5000)

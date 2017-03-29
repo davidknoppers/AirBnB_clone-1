@@ -5,7 +5,6 @@ With our databases accessible from the backend
 Further scripts will make the website more sophisticated
 """
 from models import storage
-
 from flask import Flask, render_template
 app = Flask(__name__)
 

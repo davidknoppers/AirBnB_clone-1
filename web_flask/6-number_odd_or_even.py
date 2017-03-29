@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from flask import Flask
+from flask import Flask, render_template
 app = Flask(__name__)
 
 
@@ -37,16 +37,14 @@ def python_route(text="is cool"):
     return ("Python "+text.replace("_", " "))
 
 
-@app.route('/number/')
 @app.route('/number/<int:n>')
 def number_route(n):
     """
     prints if n is an int
     """
-    return ("{} is a number".format(n))
+    return ("{} is a number".format(int(n)))
 
 
-@app.route('/number_template/')
 @app.route('/number_template/<int:n>')
 def number_template(n):
     """
@@ -54,8 +52,6 @@ def number_template(n):
     """
     return render_template('5-number.html', n=n)
 
-
-@app.route('/number_odd_or_even/')
 @app.route('/number_odd_or_even/<int:n>')
 def number_odd_or_even(n):
     """

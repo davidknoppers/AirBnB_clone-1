@@ -13,13 +13,13 @@ def states_html(id):
     """
     states = storage.all("State")
     if (id is None):
-        return render_template('9-states.html', states=states, id='all_states')
+        return render_template('9-states.html', states=states, id='all')
     else:
         for val in states.values():
             if val.id == id:
                 state = val
                 return render_template('9-states.html',
-                                       states=state, id='one_state')
+                                       states=state, id='single')
         return render_template('9-states.html', states=states, id='none')
 
 

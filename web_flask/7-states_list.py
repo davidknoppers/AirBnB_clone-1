@@ -17,7 +17,7 @@ def closing_time(self):
     storage.close()
 
 
-@app.route('/states_list/')
+@app.route('/states_list')
 def states_list():
     """
     list all states from storage

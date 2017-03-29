@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from flask import Flask
+from flask import Flask, render_template
 app = Flask(__name__)
 
 
@@ -45,7 +45,6 @@ def number_route(n):
     return ("{} is a number".format(int(n)))
 
 
-@app.route('/number_template/')
 @app.route('/number_template/<int:n>')
 def number_template(n):
     """

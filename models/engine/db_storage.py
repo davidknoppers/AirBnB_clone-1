@@ -47,8 +47,12 @@ class DBstorage:
                 for instance in self.__session.query(orm_class):
                     objects[instance.id] = instance
         else:
-            for instance in self.__session.query(self.valid_classes[cls]):
-                objects[instance.id] = instance
+            if isinstance(cls, str):
+                for instance in self.__session.query(eval(cls)):
+                    objects[instance.id] = instance
+            else:
+                for instance in self.__session.query(cls):
+                    objects[instance.id] = instance
         return objects
 
     def new(self, obj):

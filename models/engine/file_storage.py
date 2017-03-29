@@ -14,7 +14,8 @@ class FileStorage:
     def __init__(self):
         self.reload()
 
-    def all(self):
+    def all(self, cls=None):
+        print("file_storage's all triggered")
         return FileStorage.__objects
 
     def new(self, obj):

@@ -53,4 +53,4 @@ class FileStorage:
         """
         just calls save
         """
-        self.save()
+        self.reload()

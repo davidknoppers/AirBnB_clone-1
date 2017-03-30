@@ -62,17 +62,12 @@ class DBstorage:
         self.__session.commit()
 
     def delete(self, obj=None):
-        if obj is not None:
-            eval(obj).query.filter_by(id=obj.id).delete()
+        if obj:
+            self.__session.delete(obj)
 
     def reload(self):
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
-            getenv('HBNB_MYSQL_USER'),
-            getenv('HBNB_MYSQL_PWD'),
-            getenv('HBNB_MYSQL_HOST'),
-            getenv('HBNB_MYSQL_DB')))
-
         self.__session = scoped_session(sessionmaker(bind=self.__engine))
+        Base.metadata.create_all(self.__engine)
 
     def close(self):
         """

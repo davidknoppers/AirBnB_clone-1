@@ -46,7 +46,7 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        if obj is not None:
+        if obj:
             FileStorage.__objects.pop(obj.id, 0)
 
     def close(self):
